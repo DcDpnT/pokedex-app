@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import PokemonCard from './components/PokemonCard.jsx'
+import PokemonCard from './components/PokemonCard.jsx';
+import NavBar from './components/NavBar.jsx';
 import './App.css'
 
 const pokemonList = [
@@ -25,34 +26,36 @@ const pokemonList = [
     },
     {
       name: "mew",
+      imgSrc:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/151.png",
     },
   ]; 
 
-const App = () => {
-  const [pokemonCount, setPokemonCount] = useState (0);
-
-  const handleClickNext = () =>
-  setPokemonCount(
-    pokemonCount < pokemonList.length - 1 ? pokemonCount + 1 : pokemonCount
-  );
-const handleClickPrevious = () =>
-    setPokemonCount(pokemonCount > 0 ? pokemonCount - 1 : pokemonCount);
-    
-const Pokemon = pokemonList[pokemonCount];
-
-return (
-  <div>
-    <img src={Pokemon.imgSrc} alt={Pokemon.name} />
-    <div>
-      {pokemonCount > 0 ? (
-        <button onClick={handleClickPrevious}>Previous</button>
-      ) : undefined}
-      {pokemonCount < pokemonList.length -1 ?  (
-        <button onClick={handleClickNext}>Next</button>
-      ) : undefined}
-  </div>
-</div>
-)
+  const App = () => {
+    const [pokemonCount, setPokemonCount] = useState(0);
+  
+    const handleClickNext = () =>
+      setPokemonCount(
+        pokemonCount < pokemonList.length - 1 ? pokemonCount + 1 : pokemonCount
+      );
+  
+    const handleClickPrevious = () =>
+      setPokemonCount(pokemonCount > 0 ? pokemonCount - 1 : pokemonCount);
+  
+    const Pokemon = pokemonList[pokemonCount];
+  
+    return (
+      <div>
+        <PokemonCard pokemon={Pokemon} />
+        <NavBar
+          onNextClick={handleClickNext}
+          onPreviousClick={handleClickPrevious}
+          showPrevious={pokemonCount > 0}
+          showNext={pokemonCount < pokemonList.length - 1}
+        />
+      </div>
+    );
 };
 
 export default App;
+
