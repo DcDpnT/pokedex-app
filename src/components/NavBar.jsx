@@ -1,18 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const NavBar = ({ onNextClick, onPreviousClick, showPrevious, showNext }) => (
+const NavBar = ({ pokemonList, onPokemonClick }) => (
   <div>
-    {showPrevious && <button onClick={onPreviousClick}>Previous</button>}
-    {showNext && <button onClick={onNextClick}>Next</button>}
+    {pokemonList.map((pokemon, index) => (
+      <button key={index} onClick={() => onPokemonClick(index)}>
+        {pokemon.name}
+      </button>
+    ))}
   </div>
 );
 
 NavBar.propTypes = {
-  onNextClick: PropTypes.func.isRequired,
-  onPreviousClick: PropTypes.func.isRequired,
-  showPrevious: PropTypes.bool.isRequired,
-  showNext: PropTypes.bool.isRequired,
+  pokemonList: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      imgSrc: PropTypes.string,
+    })
+  ).isRequired,
+  onPokemonClick: PropTypes.func.isRequired,
 };
 
-export default NavBar;
+export default NavBar

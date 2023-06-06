@@ -34,28 +34,19 @@ const pokemonList = [
   const App = () => {
     const [pokemonCount, setPokemonCount] = useState(0);
   
-    const handleClickNext = () =>
-      setPokemonCount(
-        pokemonCount < pokemonList.length - 1 ? pokemonCount + 1 : pokemonCount
-      );
-  
-    const handleClickPrevious = () =>
-      setPokemonCount(pokemonCount > 0 ? pokemonCount - 1 : pokemonCount);
+    const handleClickPokemon = (index) => {
+      setPokemonCount(index);
+    };
   
     const Pokemon = pokemonList[pokemonCount];
   
     return (
       <div>
         <PokemonCard pokemon={Pokemon} />
-        <NavBar
-          onNextClick={handleClickNext}
-          onPreviousClick={handleClickPrevious}
-          showPrevious={pokemonCount > 0}
-          showNext={pokemonCount < pokemonList.length - 1}
-        />
+        <NavBar pokemonList={pokemonList} onPokemonClick={handleClickPokemon} />
       </div>
     );
-};
-
-export default App;
+  };
+  
+  export default App;
 
